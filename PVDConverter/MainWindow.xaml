@@ -1,0 +1,32 @@
+﻿<Window x:Class="PVDConverter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PVDConverter"
+        mc:Ignorable="d"
+        Title="PVD Converter" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width=".5*"/>
+        </Grid.ColumnDefinitions>
+        <ProgressBar Name="Percentage" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Margin="40" Value="{Binding Path=Percent, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Name="Textout" Grid.Row="2" Grid.ColumnSpan="5" Margin="40" FontSize="40" Content="{Binding Path=TextOut, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
+        <Button Name="Open" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Content="Input file" FontSize="24" Margin="15" Padding="5" Click="Open_Click"/>
+        <Button Name="Save" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Content="Output file" FontSize="24" Margin="15" Padding="5" Click="Save_Click"/>
+        <Button Name="Start" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Content="Start" FontSize="24" Margin="15" Padding="5" Click="Start_Click"/> 
+        <Button Name="Close" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="1" Content="Close" FontSize="24" Margin="15" Padding="5" Click="Close_Click"/>
+        <CheckBox Name="Color" Grid.Row="1" Grid.Column="0" Content="Color" FontSize="20"/>
+    </Grid>
+</Window>

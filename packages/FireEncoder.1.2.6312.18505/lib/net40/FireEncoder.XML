@@ -1,0 +1,1385 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FireEncoder</name>
+    </assembly>
+    <members>
+        <member name="T:FireEncoder.CodecInfo">
+            <summary>
+            Represent codec information.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.#ctor(System.String,System.String)">
+            <summary>
+            Initialize new instance of this class.
+            </summary>
+            <param name="name">Codec name in <c>ffmpeg</c>.</param>
+            <param name="desc">Codec description.</param>
+        </member>
+        <member name="P:FireEncoder.CodecInfo.Name">
+            <summary>
+            Codec library name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.CodecInfo.Description">
+            <summary>
+            Codec friendly name.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.op_Equality(FireEncoder.CodecInfo,FireEncoder.CodecInfo)">
+            <summary>
+            Compare two codec info if they both are equal.
+            </summary>
+            <param name="c1">Left codec.</param>
+            <param name="c2">Right codec.</param>
+            <returns><c>true</c> if both instance are equal, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.op_Inequality(FireEncoder.CodecInfo,FireEncoder.CodecInfo)">
+            <summary>
+            Compare two codec info if they both are not equal.
+            </summary>
+            <param name="c1">Left codec.</param>
+            <param name="c2">Right codec.</param>
+            <returns><c>true</c> if both instance are not equal, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.Equals(FireEncoder.CodecInfo)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param>
+        </member>
+        <member name="M:FireEncoder.CodecInfo.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+        </member>
+        <member name="T:FireEncoder.CodecStrictness">
+            <summary>
+            Specify how strictly to follow the standards.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.CodecStrictness.Very">
+            <summary>
+            Strictly conform to an older more Strict version of the spec or reference software.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.CodecStrictness.Strict">
+            <summary>
+            Strictly conform to all the things in the spec no matter what consequences.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.CodecStrictness.Normal">
+            <summary>
+            Normal.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.CodecStrictness.Unofficial">
+            <summary>
+            Allow Unofficial extensions.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.CodecStrictness.Experimental">
+            <summary>
+            Allow non standardized Experimental things, Experimental (unfinished/work in 
+            progress/not well tested) decoders and encoders.
+            </summary>
+            <remarks>Experimental decoders can pose a security risk, do not use this for decoding untrusted input.</remarks>
+        </member>
+        <member name="T:FireEncoder.CommandSet">
+            <summary>
+            Provides command sequence collection.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.CommandSet.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FireEncoder.CommandSet"/> class.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.CommandSet.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.CommandSet.Clear">
+            <summary>
+            Clears existing commands.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.CommandSet.Add(FireEncoder.Diagnostics.ICommand)">
+            <summary>
+            Adds a command to sequence.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:FireEncoder.CommandSet.ToArgumentString">
+            <summary>
+            Serializes this instance to coresponding value.
+            </summary>
+            <returns>Serialized instance information.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XChannel">
+            <summary>
+            Set the number of audio channels.
+            </summary>
+            <remarks>For output streams it is set by default to the number of input audio
+            channels. For input streams this option only makes sense for audio grabbing devices
+            and raw  demuxers and is mapped to the corresponding demuxer options.</remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XChannel.AudioChannels">
+            <summary>
+            Audio channels.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XChannel.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XChannel.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XChannel.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XChannel.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XCodec">
+            <summary>
+            Select an encoder or a decoder for one or more streams.
+            </summary>
+            <remarks>
+            <para>Select an encoder (when used before an output file) or a decoder (when used before an input file) for 
+            one or more streams.codec is the name of a decoder/encoder or a special value copy (output 
+            only) to indicate that the stream is not to be re-encoded.</para>
+            </remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodec.Type">
+            <summary>
+            Stream type. Defaults to <see cref="F:FireEncoder.StreamType.Video"/>.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodec.Codec">
+            <summary>
+            Stream codec to apply.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodec.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodec.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodec.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XCodec.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XCodecStrict">
+            <summary>
+            Specify how strictly to follow the standards.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodecStrict.Strictness">
+            <summary>
+            Specify how strictly to follow the standards.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodecStrict.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCodecStrict.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XCodecStrict.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XCustomCommand">
+            <summary>
+            Provides custom command argument.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCustomCommand.Command">
+            <summary>
+            Custom command.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XCustomCommand.CanSerialize">
+            <summary>
+            Gets value that current instance is serializable to command-line.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XCustomCommand.ToArgumentString">
+            <summary>
+            Serialize command to command-line.
+            </summary>
+            <returns>Command-line version of command.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XDuration">
+            <summary>
+            Limit the duration of data.
+            </summary>
+            <remarks>
+            <para>When used as an input option (before <see cref="T:FireEncoder.Commands.XInputFile"/>), limit the duration of data read from the input file.</para>
+            <para>When used as an output option (before an output filename), stop writing the output after its duration reaches duration.</para>
+            <para>-to and -t are mutually exclusive and -t has priority.</para>
+            </remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XDuration.Duration">
+            <summary>
+            Duration of stream.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XDuration.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XDuration.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XDuration.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XFilter">
+            <summary>
+            Create the filtergraph specified by filtergraph and use it to filter the stream.
+            </summary>
+            <remarks>
+            <para>filtergraph is a description of the filtergraph to apply to the stream, and must have a single input
+            and a single output of the same type of the stream.In the filtergraph, the input is associated to the
+            label  in , and the output to the label  out . See the ffmpeg-filters manual for more information 
+            about the filtergraph syntax.</para>
+            <para>Set <see cref="P:FireEncoder.Commands.XFilter.IsComplexFilter"/> to <see langword="true"/> and use complex filtergraph if you want to create filtergraphs with multiple inputs and/or outputs.</para>
+            </remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.Filter">
+            <summary>
+            <c>ffmpeg</c> filter syntax.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.IsComplexFilter">
+            <summary>
+            Specifies if this instance is a complex filter.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.CustomFilter">
+            <summary>
+            This is a custom filter addition. You must specify filter with their command line.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFilter.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XFilter.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XFramerate">
+            <summary>
+            Set frame rate (Hz value, fraction or abbreviation).
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFramerate.Framerate">
+            <summary>
+            Desired framerate.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFramerate.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFramerate.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XFramerate.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XFramerate.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XInputFile">
+            <summary>
+            Input file name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XInputFile.InputName">
+            <summary>
+            Input file name.
+            </summary>
+            <remarks>You can also provide file path.</remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XInputFile.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XInputFile.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XInputFile.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XLoop">
+            <summary>
+            Repeatedly loop output for formats that support looping such as animated GIF (0 will loop the output infinitely).
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XLoop.Count">
+            <summary>
+            Loop count.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XLoop.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XLoop.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XLoop.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XMap">
+            <summary>
+            Designate one or more input streams as a source for the output file.
+            </summary>
+            <remarks>Each input stream is identified 
+            by the input file index input_file_id and the input stream index input_stream_id within the input file. 
+            Both indices start at 0. If specified, sync_file_id:stream_specifier sets which input stream is used as a 
+            presentation sync reference.</remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.NegativeMapping">
+            <summary>
+            Disables matching streams from already created mappings.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.InputFileId">
+            <summary>
+            Input file id.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.InputStreamSpecifier">
+            <summary>
+            Stream specifier for input stream.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.SyncFileId">
+            <summary>
+            Sync file id.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.SyncStreamSpecifier">
+            <summary>
+            Stream specifier for sync stream.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.LinkLabel">
+            <summary>
+            Gets/sets link label. Use full specifier with brackets.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XMap.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XMap.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XOutputFile">
+            <summary>
+            Specifies output file name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XOutputFile.OutputName">
+            <summary>
+            Input file name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XOutputFile.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XOutputFile.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XOverwrite">
+            <summary>
+            Overwrite output files without asking.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XOverwrite.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XOverwrite.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XOverwrite.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XPixelFormat">
+            <summary>
+            Set pixel format.
+            </summary>
+            <remarks>Use <c>‐pix_fmt</c> to show all the supported pixel formats. If the selected pixel
+            format can not be selected, ffmpeg will print a warning and select the best pixel format supported
+            by the encoder.If pix_fmt is prefixed by a  + , ffmpeg will exit with an error if the requested pixel
+            format can not be selected, and automatic conversions inside filtergraphs are disabled.If pix_fmt is
+            a single  + , ffmpeg selects the same pixel format as the input (or graph output) and automatic
+            conversions are disabled.</remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XPixelFormat.Format">
+            <summary>
+            Pixel format.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPixelFormat.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPixelFormat.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPixelFormat.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XPixelFormat.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XPreset">
+            <summary>
+            Specify the preset for matching stream(s).
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPreset.Preset">
+            <summary>
+            Preset name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPreset.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPreset.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XPreset.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XPreset.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XQuality">
+            <summary>
+            Use fixed quality scale (VBR).
+            </summary>
+            <remarks> The meaning of q/qscale is codec-dependent. If qscale is used without a <see cref="P:FireEncoder.Commands.XQuality.StreamSpecifier"/>
+            then it applies only to the video stream, this is to maintain compatibility with previous behavior and as
+            specifying the same codec specific value to 2 different codecs that is audio and video generally is not what 
+            is intended when no <see cref="P:FireEncoder.Commands.XQuality.StreamSpecifier"/> is used.</remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XQuality.IsAudio">
+            <summary>
+            Gets/sets that this quality will be based to audio or video.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XQuality.Quality">
+            <summary>
+            Quality specifier.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XQuality.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XQuality.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XQuality.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XQuality.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XShortest">
+            <summary>
+            Finish encoding when the shortest input stream ends.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XShortest.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XShortest.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XShortest.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Commands.XSize">
+            <summary>
+            Set frame size.
+            </summary>
+            <remarks>>
+            <para>As an input option, this is a shortcut for the video_size private option, recognized by some
+            demuxers for which the frame size is either not stored in the file or is configurable – e.g.raw video
+            or video grabbers.</para>
+            <para>As an output option, this inserts the scale video filter to the end of the corresponding filtergraph.</para>
+            </remarks>
+        </member>
+        <member name="P:FireEncoder.Commands.XSize.Size">
+            <summary>
+            Video size.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XSize.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XSize.Argument">
+            <summary>
+            <c>ffmpeg</c> command switch.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Commands.XSize.CanSerialize">
+            <summary>
+            Determine that current instance state can be serialized.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Commands.XSize.ToArgumentString">
+            <summary>
+            Serializes data from deriven class to <c>ffmpeg</c> command.
+            </summary>
+            <returns><c>ffmpeg</c> command switch.</returns>
+        </member>
+        <member name="T:FireEncoder.Diagnostics.ExtendedProcess">
+            <summary>
+            Extended <see cref="T:System.Diagnostics.Process"/> class.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Diagnostics.ExtendedProcess.RunWaitStderr(FireEncoder.Diagnostics.ProcessInfo,System.Int32@)">
+            <summary>
+            Execute and wait the program for exit with standard error output redirection.
+            </summary>
+            <param name="startInfo">Process start information.</param>
+            <param name="exitCode">Process exit code.</param>
+            <returns>Output data from process's standard error.</returns>
+        </member>
+        <member name="M:FireEncoder.Diagnostics.ExtendedProcess.RunWaitStdout(FireEncoder.Diagnostics.ProcessInfo,System.Int32@)">
+            <summary>
+            Execute and wait the program for exit.
+            </summary>
+            <param name="startInfo">Process start information.</param>
+            <param name="exitCode">Process exit code.</param>
+            <returns>Output data from process's standard output.</returns>
+        </member>
+        <member name="M:FireEncoder.Diagnostics.ExtendedProcess.RunWait(FireEncoder.Diagnostics.ProcessInfo)">
+            <summary>
+            Execute and wait the program for exit and returns exit code.
+            </summary>
+            <param name="startInfo">Process start information.</param>
+            <returns>Process exit code.</returns>
+        </member>
+        <member name="T:FireEncoder.Diagnostics.ICommand">
+            <summary>
+            Represent command-line paramter
+            </summary>
+        </member>
+        <member name="M:FireEncoder.Diagnostics.ICommand.ToArgumentString">
+            <summary>
+            Serialize command to command-line.
+            </summary>
+            <returns>Command-line version of command.</returns>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.ICommand.CanSerialize">
+            <summary>
+            Gets value that current instance is serializable to command-line.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.Diagnostics.ProcessInfo">
+            <summary>
+            Process start information.
+            </summary>
+            <remarks>This class only covers minimal required information to execute process.</remarks>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.ProcessInfo.FilePath">
+            <summary>
+            Full path to binary file to be executed.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.ProcessInfo.WorkingDirectory">
+            <summary>
+            Working directory.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.ProcessInfo.Argument">
+            <summary>
+            Process start argument.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.Diagnostics.IArgument">
+            <summary>
+            Specifies <c>ffmpeg</c> command.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.IArgument.Argument">
+            <summary>
+            Command argument.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.Diagnostics.IStreamSpecifier">
+            <summary>
+            Command that use stream specifier.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.Diagnostics.IStreamSpecifier.StreamSpecifier">
+            <summary>
+            Stream specifier number.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.EncodeCompletedEventArgs">
+            <summary>
+            Encode progress completed.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeCompletedEventArgs.Success">
+            <summary>
+            Checks if encode process is failed
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeCompletedEventArgs.ConsoleOuptut">
+            <summary>
+            FFmpeg console output
+            </summary>
+        </member>
+        <member name="T:FireEncoder.EncodeException">
+            <summary>
+            FFMPEG fails to encode media file.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeException.ConsoleOutput">
+            <summary>
+            Gets <c>ffmpeg</c> console output.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.EncodeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates a SerializationInfo with the data needed to serialize the target object.
+            </summary>
+            <param name="info">The SerializationInfo to populate with data.</param>
+            <param name="context">The destination (see StreamingContext) for this serialization.</param>
+        </member>
+        <member name="T:FireEncoder.EncodeProgressChangedEventArgs">
+            <summary>
+            Encode progress informations.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeProgressChangedEventArgs.ProgressPercentage">
+            <summary>
+            Progress percentage (0-100).
+            </summary>
+            <remarks>This property may inaccurate. Due to <c>ffmpeg</c> duration guessing using
+            bitrate, it is duration guessing is inaccurate which makes progress percentage
+            calculation wrong.</remarks>
+        </member>
+        <member name="P:FireEncoder.EncodeProgressChangedEventArgs.Size">
+            <summary>
+            Currently encoded file size. Increases until encode finishes.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeProgressChangedEventArgs.Time">
+            <summary>
+            Current encoded time length.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeProgressChangedEventArgs.Bitrate">
+            <summary>
+            Current encoded vide bitrate.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.EncodeProgressChangedEventArgs.Speed">
+            <summary>
+            Current encoding speed.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.IFFmpegProcessor">
+            <summary>
+            Specifies <c>ffmpeg</c> processor paths.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.IFFmpegProcessor.FFmpegPath">
+            <summary>
+            Full path to <c>ffmpeg</c> executable.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.IFFmpegProcessor.WorkingDirectory">
+            <summary>
+            Full path to <c>ffmpeg</c> working directory.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.IO.PathExtension">
+            <summary>
+            Adds extension method to create fluent path.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.PathExtension.ToPathFluent(System.String)">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.PathFluent"/> object from current string.
+            </summary>
+            <param name="s"><see cref="T:System.String"/> object to convert.</param>
+            <returns><see cref="T:FireEncoder.IO.PathFluent"/> object of current path.</returns>
+        </member>
+        <member name="T:FireEncoder.IO.PathFluent">
+            <summary>
+            Provides fluent path manipulations.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.#ctor(System.String)">
+            <summary>
+            Initialize new instance of <see cref="T:FireEncoder.IO.PathFluent"/> using specified path.
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.Rename(System.String)">
+            <summary>
+            Renames file/folder name.
+            </summary>
+            <param name="fullName">New file/folder name.</param>
+            <returns></returns>
+            <remarks>When current instance is a file path, you can also provide extension information to
+            this method.</remarks>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.ChangeExtension(System.String)">
+            <summary>
+            Changes file extension.
+            </summary>
+            <param name="extension">New extension.</param>
+            <returns></returns>
+            <remarks>No matter if current instance is file/folder, this method will always append the
+            extension to end of filename.</remarks>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.ChangeDirectoryPath(System.String)">
+            <summary>
+            Changes directory path to new location.
+            </summary>
+            <param name="path">Full directory path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.GetFullPath">
+            <summary>
+            Gets fully qualified path.
+            </summary>
+            <returns>Fully qualified path.</returns>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.GetFileName">
+            <summary>
+            Gets file/folder name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FireEncoder.IO.PathFluent.GetExtension">
+            <summary>
+            Gets file extension.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FireEncoder.IO.TemporaryFile">
+            <summary>
+            Temporary file handler.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.#ctor">
+            <summary>
+            Initialize new instance of <see cref="T:FireEncoder.IO.TemporaryFile"/> class using random filename and ".tmp" extension.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.Create">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.TemporaryFile"/> object using random file name zero-bytes temporary file.
+            </summary>
+            <returns><see cref="T:FireEncoder.IO.TemporaryFile"/> object using zero-bytes random file name temporary file.</returns>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.FromFile(System.String)">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.TemporaryFile"/> object from specified file.
+            </summary>
+            <param name="filePath">Full filePath to file to be copied as temporary file.</param>
+            <returns><see cref="T:FireEncoder.IO.TemporaryFile"/> object using a copy of specified file in temporary directory.</returns>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.FromFile(System.String,System.String,System.Boolean)">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.TemporaryFile"/> object from specified file.
+            </summary>
+            <param name="filePath">Full filePath to file to be copied as temporary file.</param>
+            <param name="tempPath">Base temporary path.</param>
+            <param name="preserveExtension">Preserve file extension.</param>
+            <returns><see cref="T:FireEncoder.IO.TemporaryFile"/> object using a copy of specified file in temporary directory.</returns>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.FromExtension(System.String)">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.TemporaryFile"/> object using zero-bytes temporary file using specified extension.
+            </summary>
+            <param name="extension">Extension to use.</param>
+            <returns><see cref="T:FireEncoder.IO.TemporaryFile"/> object using zero-bytes random file name with specified extension temporary file.</returns>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.FromExtension(System.String,System.String)">
+            <summary>
+            Create <see cref="T:FireEncoder.IO.TemporaryFile"/> object using zero-bytes temporary file using specified extension and temporary directory.
+            </summary>
+            <param name="extension">Extension to use</param>
+            <param name="tempPath">Base temporary path</param>
+            <returns><see cref="T:FireEncoder.IO.TemporaryFile"/> object using zero-bytes random file name with specified extension temporary file.</returns>
+        </member>
+        <member name="P:FireEncoder.IO.TemporaryFile.FullPath">
+            <summary>
+            Gets current temporary file filePath.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.IO.TemporaryFile.Name">
+            <summary>
+            Gets current temporary file name.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.Delete">
+            <summary>
+            Delete temporary file. This will make this instance unusable.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.Rename(System.String)">
+            <summary>
+            Renames temporary file (don't include extension).
+            </summary>
+            <param name="name">New file name.</param>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.HasLockedState">
+            <summary>
+            Checks if the file is being used.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.OpenStream">
+            <summary>
+            Returns <c>FileStream</c> with read/write permission.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FireEncoder.IO.TemporaryFile.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.MediaPlayer">
+            <summary>
+            Rough <c>ffplay</c> wrapper.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.MediaPlayer.FFplayPath">
+            <summary>
+            Full path to <c>ffprobe</c> executable.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaPlayer.Play(System.String)">
+            <summary>
+            Simple play media file.
+            </summary>
+            <param name="filePath">Full path to file to be played.</param>
+        </member>
+        <member name="T:FireEncoder.MediaEncoder">
+            <summary>
+            Main <c>ffmpeg</c> encoder wrapper.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.#ctor">
+            <summary>
+            Initialize new instance of <see cref="T:FireEncoder.MediaEncoder"/>.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.MediaEncoder.FFmpegPath">
+            <summary>
+            Full path to <c>ffmpeg</c> executable.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.MediaEncoder.WorkingDirectory">
+            <summary>
+            Full path to <c>ffmpeg</c> working directory.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.MediaEncoder.Commands">
+            <summary>
+            Commands to executed using <c>ffmpeg</c>.
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="E:FireEncoder.MediaEncoder.EncodeStarted">
+            <summary>
+            Encode process started.
+            </summary>
+        </member>
+        <member name="E:FireEncoder.MediaEncoder.ProgressChanged">
+            <summary>
+            Encode process changed. Raised when <c>ffmpeg</c> encodes a block of stream.
+            </summary>
+        </member>
+        <member name="E:FireEncoder.MediaEncoder.EncodeCompleted">
+            <summary>
+            Encode process completed.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.AddCommand(FireEncoder.Diagnostics.ICommand)">
+            <summary>
+            Add command to sequence.
+            </summary>
+            <param name="command">Command to add.</param>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.StartEncode">
+            <summary>
+            Starts encode process syncronously.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.StartEncodeAsync">
+            <summary>
+            Starts encode process asyncronously.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.StopEncodeAsync">
+            <summary>
+            Stops encoding process.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaEncoder.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:FireEncoder.MediaProbe">
+            <summary>
+            Provides basic media identification using <c>ffprobe</c>.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.MediaProbe.FFprobePath">
+            <summary>
+            Full path to <c>ffprobe</c> executable.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaProbe.GetDuration(System.String)">
+            <summary>
+            Gets media duration.
+            </summary>
+            <param name="filePath">Full path to media file.</param>
+            <returns><see cref="T:System.TimeSpan"/> object representing specified media duration.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaProbe.GetDimension(System.String)">
+            <summary>
+            Gets media dimension.
+            </summary>
+            <param name="filePath">Full path to media file.</param>
+            <returns><see cref="T:FireEncoder.VideoSize"/> object representing specified media dimension.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaProbe.GetStreamNumber(System.String,FireEncoder.StreamType)">
+            <summary>
+            Gets stream number.
+            </summary>
+            <param name="filePath">Full path to media file.</param>
+            <param name="type">Stream type. Only valid for Audio and Video stream.</param>
+            <returns></returns>
+        </member>
+        <member name="T:FireEncoder.MediaUtilities">
+            <summary>
+            Provides <c>ffutils</c> implementations.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.CopyCodec">
+            <summary>
+            Specifies ffmpeg to copy codec from source stream to destination stream.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.MediaUtilities.AudioCodec">
+            <summary>
+            Known <c>ffmpeg</c> audio codec.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.AudioCodec.Libmp3Lame">
+            <summary>
+            MP3 codec using <c>libmp3lame</c>.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.AudioCodec.Aac">
+            <summary>
+            AAC codec using <c>faac</c>.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.AudioCodec.Libvorbis">
+            <summary>
+            OGG codec using <c>libvorbis</c>.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.MediaUtilities.VideoCodec">
+            <summary>
+            Known <c>ffmpeg</c> video codec.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoCodec.Libx264">
+            <summary>
+            H.264 codec using <c>libx264</c>.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoCodec.Mpeg4Video">
+            <summary>
+            MPEG4 codec using <c>mpeg4video</c>.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.MediaUtilities.VideoSizes">
+            <summary>
+            <c>ffmpeg</c> video size presets.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.NTSC">
+            <summary>
+            NTSC screen size.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.PAL">
+            <summary>
+            PAL screen size.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.VGA">
+            <summary>
+            VGA screen size.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.HD480">
+            <summary>
+            HD 480 screen size.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.HD720">
+            <summary>
+            HD 720 screen size.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VideoSizes.HD1080">
+            <summary>
+            HD 1080 screen size.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.MediaUtilities.VolumeFactor">
+            <summary>
+            Volume amplification factor when using audio filters.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VolumeFactor.Normal">
+            <summary>
+            Normal volume gain.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VolumeFactor.Silent">
+            <summary>
+            Silent audio (muted).
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VolumeFactor.Multiple">
+            <summary>
+            Double volume gain.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.MediaUtilities.VolumeFactor.Half">
+            <summary>
+            Half volume gain.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.ToCommandArgument(FireEncoder.VideoSize)">
+            <summary>
+            Serialize this <see cref="T:FireEncoder.VideoSize"/> to command-line argument.
+            </summary>
+            <param name="size">Object to serialize.</param>
+            <returns><c>ffutil</c> compliant data.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.TruncateVideoSize(System.Int32)">
+            <summary>
+            Make video size divisible by two.
+            </summary>
+            <param name="size">Video size.</param>
+            <returns>Divisible by two video size.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.ConvertTime(System.TimeSpan)">
+            <summary>
+            Converts <paramref name="time"/> to <c>ffmpeg</c> specification.
+            </summary>
+            <param name="time"><see cref="T:System.TimeSpan"/> object to convert.</param>
+            <returns><see cref="T:System.String"/> object representing <paramref name="time"/> object.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.ConvertTime(System.String)">
+            <summary>
+            Converts specified <c>ffmpeg</c> time code to <see cref="T:System.TimeSpan"/> object.
+            </summary>
+            <param name="timeCode"><c>ffmpeg</c> time code specification to convert.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.ConvertDateTime(System.DateTime,System.Boolean)">
+            <summary>
+            Converts <paramref name="date"/> to <c>ffmpeg</c> specification.
+            </summary>
+            <param name="date"><see cref="T:System.DateTime"/> object to convert.</param>
+            <param name="isUtc">Specifies that the given <see cref="T:System.DateTime"/> object is in UTC</param>
+            <returns><see cref="T:System.String"/> object representing <paramref name="date"/> object.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.ConvertDateTime(System.String)">
+            <summary>
+            Converts <c>ffmpeg</c> date specification to <see cref="T:System.DateTime"/> object.
+            </summary>
+            <param name="dateCode"><c>ffmpeg</c> date specification.</param>
+            <returns><see cref="T:System.DateTime"/> object representing specified <c>ffmpeg</c> date.</returns>
+        </member>
+        <member name="M:FireEncoder.MediaUtilities.Escape(System.String,System.Boolean)">
+            <summary>
+            Escapes space character to use in command-line.
+            </summary>
+            <param name="text">Text to escape.</param>
+            <param name="force">Force to escape even when escaping is not needed.</param>
+            <returns>Command-line escaped characters.</returns>
+        </member>
+        <member name="T:FireEncoder.StreamType">
+            <summary>
+            Specifies stream type.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.StreamType.Data">
+            <summary>
+            Specifies stream type is data stream.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.StreamType.Audio">
+            <summary>
+            Specifies stream type is audio stream.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.StreamType.Video">
+            <summary>
+            Specifies stream type is video stream.
+            </summary>
+        </member>
+        <member name="F:FireEncoder.StreamType.None">
+            <summary>
+            Specifies to not use <see cref="T:FireEncoder.StreamType"/> specifier.
+            </summary>
+        </member>
+        <member name="T:FireEncoder.VideoSize">
+            <summary>
+            Provides <c>ffmpeg</c> video size presets.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.VideoSize.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            Initialize new instance of this class.
+            </summary>
+            <param name="width">Video width.</param>
+            <param name="height">Video height.</param>
+            <param name="name">Size name.</param>
+        </member>
+        <member name="F:FireEncoder.VideoSize.Zero">
+            <summary>
+            Specifies uninitialized <see cref="T:FireEncoder.VideoSize"/>.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.VideoSize.Name">
+            <summary>
+            Size name.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.VideoSize.Width">
+            <summary>
+            Video width.
+            </summary>
+        </member>
+        <member name="P:FireEncoder.VideoSize.Height">
+            <summary>
+            Video height.
+            </summary>
+        </member>
+        <member name="M:FireEncoder.VideoSize.op_Equality(FireEncoder.VideoSize,FireEncoder.VideoSize)">
+            <summary>
+            Compare two <see cref="T:FireEncoder.VideoSize"/>s object if they were equal value.
+            </summary>
+            <param name="c1">First object.</param>
+            <param name="c2">Second object.</param>
+            <returns><see cref="T:System.Boolean"/> value indicating equality of two object</returns>
+        </member>
+        <member name="M:FireEncoder.VideoSize.op_Inequality(FireEncoder.VideoSize,FireEncoder.VideoSize)">
+            <summary>
+            Compare two <see cref="T:FireEncoder.VideoSize"/>s object if they were not equal value.
+            </summary>
+            <param name="c1">First object.</param>
+            <param name="c2">Second object.</param>
+            <returns><see cref="T:System.Boolean"/> value indicating equality of two object</returns>
+        </member>
+        <member name="M:FireEncoder.VideoSize.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+        </member>
+        <member name="M:FireEncoder.VideoSize.Equals(FireEncoder.VideoSize)">
+            <summary>
+            Compare equality of this instance to another.
+            </summary>
+            <param name="other">Other instance to compare.</param>
+            <returns><see cref="T:System.Boolean"/> value indicating equality of this instance to another.</returns>
+        </member>
+        <member name="M:FireEncoder.VideoSize.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param>
+        </member>
+        <member name="M:FireEncoder.VideoSize.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+        </member>
+    </members>
+</doc>
